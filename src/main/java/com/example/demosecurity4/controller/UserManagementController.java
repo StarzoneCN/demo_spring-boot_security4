@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/user/manage")
+/*hasAuthority等同hasRole*/
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class UserManagementController {
 
     @RequestMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String index(){
         return "thanks for calling user management index method";
     }
