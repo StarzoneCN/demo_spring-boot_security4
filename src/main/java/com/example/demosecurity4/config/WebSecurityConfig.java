@@ -23,6 +23,7 @@ import javax.annotation.Resource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource private CustomUserDetialsService customUserDetialsService;
 
     @Bean

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demosecurity4.authority.mapper.AuthorityMapper">
+  <resultMap id="BaseResultMap" type="com.example.demosecurity4.authority.entity.CustomGrantedAuthority">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="authority" jdbcType="VARCHAR" property="authority" />
+  </resultMap>
+  <insert id="insert" parameterType="com.example.demosecurity4.authority.entity.CustomGrantedAuthority">
+    insert into authority (id, user_id, authority
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{authority,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demosecurity4.authority.entity.CustomGrantedAuthority">
+    insert into authority
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="authority != null">
+        authority,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="authority != null">
+        #{authority,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectByUserId" resultType="com.example.demosecurity4.authority.entity.CustomGrantedAuthority">
+      select `id`, `user_id`, `authority` from `authority` a where a.`user_id` = #{userId}
+  </select>
+</mapper>

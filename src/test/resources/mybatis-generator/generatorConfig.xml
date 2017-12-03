@@ -17,18 +17,18 @@
                         userId="root"
                         password=""/>
 
-        <javaModelGenerator targetPackage="com.example.demosecurity4.authority.entity"
+        <javaModelGenerator targetPackage="com.example.demosecurity4.user.entity"
                             targetProject="D:/IdeaWorkDir/Test/demo_spring-boot_security4/src/test/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mapper.authority"
+        <sqlMapGenerator targetPackage="mapper.user"
                          targetProject="D:/IdeaWorkDir/Test/demo_spring-boot_security4/src/test/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator targetPackage="com.example.demosecurity4.authority.mapper"
+        <javaClientGenerator targetPackage="com.example.demosecurity4.user.mapper"
                              targetProject="D:/IdeaWorkDir/Test/demo_spring-boot_security4/src/test/java"
                              type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
@@ -39,7 +39,7 @@
        enableDeleteByExample="false" enableSelectByExample="false"
         selectByExampleQueryId="false"/>-->
 
-        <table tableName="authority" domainObjectName="Authority"
+        <table tableName="user" domainObjectName="User"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

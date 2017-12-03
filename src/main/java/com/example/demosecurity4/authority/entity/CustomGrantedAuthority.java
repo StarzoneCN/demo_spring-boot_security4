@@ -1,4 +1,4 @@
-package com.example.demosecurity4.user.entity;
+package com.example.demosecurity4.authority.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -10,6 +10,8 @@ import org.springframework.security.core.GrantedAuthority;
  */
 public class CustomGrantedAuthority implements GrantedAuthority {
 
+    private Integer id;
+    private Integer userId;
     private String authority;
 
     @Override
@@ -19,5 +21,21 @@ public class CustomGrantedAuthority implements GrantedAuthority {
 
     public void setAuthority(String authority) {
         this.authority = authority;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

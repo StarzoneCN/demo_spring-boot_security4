@@ -1,10 +1,11 @@
 package com.example.demosecurity4.user.entity;
 
+import com.example.demosecurity4.authority.entity.CustomGrantedAuthority;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @author: Li Hongxing
@@ -14,13 +15,20 @@ import java.util.List;
  */
 public class User implements UserDetails {
 
+    private Integer id;
     private String username;
+    @JsonIgnore
     private String password;
     private Boolean accountNonExpired;
     private Boolean accountNonLocked;
     private Boolean credentialsNonExpired;
     private Boolean enabled;
     private Collection<CustomGrantedAuthority> authorities;
+
+    private String email;
+    private String mobile;
+    private String countryCode;
+    private String address;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -61,6 +69,14 @@ public class User implements UserDetails {
         return this.enabled;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -83,5 +99,37 @@ public class User implements UserDetails {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

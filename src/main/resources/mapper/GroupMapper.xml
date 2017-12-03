@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demosecurity4.group.mapper.GroupMapper">
+  <resultMap id="BaseResultMap" type="com.example.demosecurity4.group.entity.Group">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+  </resultMap>
+  <resultMap id="authorityResultMap" type="com.example.demosecurity4.authority.entity.CustomGrantedAuthority">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="authority" jdbcType="VARCHAR" property="authority" />
+  </resultMap>
+  <insert id="insert" parameterType="com.example.demosecurity4.group.entity.Group">
+    insert into group (id, group_name)
+    values (#{id,jdbcType=INTEGER}, #{groupName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demosecurity4.group.entity.Group">
+    insert into group
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="groupName != null">
+        group_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null">
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectGroupAuthoritiesByUserId" resultMap="authorityResultMap">
+      select a.`id`, a.`authority` from `group` g, `group_user` gu, `group_authority` ga, `authority` a
+      where gu.`user_id` = g.`id`
+      and ga.`group_id` = g.`id`
+      and ga.`authority_id` = a.`id`
+  </select>
+</mapper>

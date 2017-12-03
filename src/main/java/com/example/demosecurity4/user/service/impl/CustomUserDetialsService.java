@@ -1,7 +1,10 @@
 package com.example.demosecurity4.user.service.impl;
 
-import com.example.demosecurity4.user.entity.CustomGrantedAuthority;
+import com.example.demosecurity4.authority.mapper.AuthorityMapper;
+import com.example.demosecurity4.group.mapper.GroupMapper;
+import com.example.demosecurity4.authority.entity.CustomGrantedAuthority;
 import com.example.demosecurity4.user.entity.User;
+import com.example.demosecurity4.user.mapper.UserMapper;
 import com.example.demosecurity4.user.service.UserService;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,16 +24,38 @@ import java.util.List;
  * @modified:
  */
 @Service
-@Order(1)
 public class CustomUserDetialsService implements UserDetailsService, UserService {
 
-    @Resource private PasswordEncoder passwordEncoder;
     private boolean supportGroup;
+    @Resource private PasswordEncoder passwordEncoder;
+
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    @Resource private UserMapper userMapper;
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    @Resource private AuthorityMapper authorityMapper;
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    @Resource private GroupMapper groupMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User userDetials = manualUserDetails(username);
+        User userDetials = userMapper.selectByUsername(username);
+        if (userDetials == null) {
+            throw new UsernameNotFoundException("用户不存在");
+        }
+        userDetials.setAccountNonExpired(true);
+        userDetials.setAccountNonLocked(true);
+        userDetials.setCredentialsNonExpired(true);
+        userDetials.setEnabled(true);
+        List<CustomGrantedAuthority> authorities = getAuthorities(userDetials);
+        userDetials.setAuthorities(authorities);
         return userDetials;
+    }
+
+    private List<CustomGrantedAuthority> getAuthorities(User userDetials) {
+        if (!supportGroup) {
+            return authorityMapper.selectByUserId(userDetials.getId());
+        }
+        return groupMapper.selectGroupAuthoritiesByUserId(userDetials.getId());
     }
 
     /**
