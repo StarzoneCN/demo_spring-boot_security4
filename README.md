@@ -1,6 +1,6 @@
 demo_spring-boot_security4
 =
-测试学习spring security4<br/>
+使用mybatis+mysql实现spring security4的Jdbc模式<br/>
 ![](https://codingstory.com.cn/content/images/2017/06/maxresdefault.jpg "spring security")
 
 >###关于JDBC数据库表格建立和数据插入
