@@ -10,8 +10,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 /**
  * @author: Li Hongxing
@@ -26,6 +29,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource private CustomUserDetialsService customUserDetialsService;
+    @Resource private DataSource dataSource;
+
+    @Bean
+    @Order(1)
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        
+        /*设置createTableOnStartup为true，可建立token相关表格*/
+        jdbcTokenRepository.setCreateTableOnStartup(false);
+        jdbcTokenRepository.setDataSource(dataSource);
+        return jdbcTokenRepository;
+    }
 
     @Bean
     @Order(1)
@@ -54,7 +69,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/login").permitAll()
                     .anyRequest().authenticated().and()
                 .formLogin().permitAll().and()
-                .rememberMe().key("starzoneCN").rememberMeParameter("rememberMe").rememberMeCookieName("warplaneInLaji").tokenValiditySeconds(1200);
+                .rememberMe()
+                    .tokenRepository(persistentTokenRepository())
+                    .key("starzoneCN")
+                    .rememberMeParameter("rememberMe")
+                    .rememberMeCookieName("warplaneInLaji")
+                    .tokenValiditySeconds(60 * 60);
     }
 
 //    public static void main(String[] args) {
