@@ -4,6 +4,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+
 /**
  * @author: Li Hongxing
  * @description: 用户管理接口
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserManagementController {
 
     @RequestMapping
-    public String index(){
+    public String index(Principal user){
         return "thanks for calling user management index method";
     }
 }
