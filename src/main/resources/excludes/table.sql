@@ -4,7 +4,7 @@ CREATE TABLE `test` (
 	PRIMARY KEY (`id`)
 )
 COMMENT='测试表'
-COLLATE='utf8_general_ci'
+COLLATE='utf8mb4_unicode_ci'
 ENGINE=InnoDB
 AUTO_INCREMENT=1;
 
@@ -20,7 +20,7 @@ CREATE TABLE `user` (
 	PRIMARY KEY (`id`)
 )
 	COMMENT='用户表'
-	COLLATE='utf8_general_ci'
+	COLLATE='utf8mb4_unicode_ci'
 	ENGINE=InnoDB
 	AUTO_INCREMENT=1
 ;
@@ -32,7 +32,7 @@ CREATE TABLE `group` (
 	PRIMARY KEY (`id`)
 )
 	COMMENT='分组表'
-	COLLATE='utf8_general_ci'
+	COLLATE='utf8mb4_unicode_ci'
 	ENGINE=InnoDB
 	AUTO_INCREMENT=1
 ;
@@ -44,7 +44,7 @@ CREATE TABLE `group_user` (
 	PRIMARY KEY (`id`)
 )
 	COMMENT='用户组关系表'
-	COLLATE='utf8_general_ci'
+	COLLATE='utf8mb4_unicode_ci'
 	ENGINE=InnoDB
 	AUTO_INCREMENT=1
 ;
@@ -56,7 +56,7 @@ CREATE TABLE `authority` (
 	PRIMARY KEY (`id`)
 )
 	COMMENT='权限表'
-	COLLATE='utf8_general_ci'
+	COLLATE='utf8mb4_unicode_ci'
 	ENGINE=InnoDB
 	AUTO_INCREMENT=1
 ;
@@ -68,7 +68,7 @@ CREATE TABLE `group_authority` (
 	PRIMARY KEY (`id`)
 )
 	COMMENT='组权限关系表'
-	COLLATE='utf8_general_ci'
+	COLLATE='utf8mb4_unicode_ci'
 	ENGINE=InnoDB
 	AUTO_INCREMENT=1
 ;
