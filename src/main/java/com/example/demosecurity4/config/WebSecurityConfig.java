@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Order(1)
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
-        
+
         /*设置createTableOnStartup为true，可建立token相关表格*/
         jdbcTokenRepository.setCreateTableOnStartup(false);
         jdbcTokenRepository.setDataSource(dataSource);
@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        inMemoryManualConfig(auth);  //inMemory模式配置
+        // inMemoryManualConfig(auth);  //inMemory模式配置
         customUserDetialsService.setSupportGroup(true);
         auth.userDetailsService(customUserDetialsService).passwordEncoder(passwordEncoder());
     }
@@ -74,11 +74,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .key("starzoneCN")
                     .rememberMeParameter("rememberMe")
                     .rememberMeCookieName("warplaneInLaji")
-                    .tokenValiditySeconds(60 * 60);
+                    .tokenValiditySeconds(60 * 60).and()
+                .httpBasic();
     }
 
-//    public static void main(String[] args) {
-//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//        System.out.println(passwordEncoder.encode("admin"));
-//    }
+    public static void main(String[] args) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        System.out.println(passwordEncoder.encode("qq123123"));
+    }
 }

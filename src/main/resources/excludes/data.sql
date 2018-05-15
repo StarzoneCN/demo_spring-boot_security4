@@ -1,4 +1,4 @@
-INSERT INTO `spring_security_test`.`user`(`username`, `password`) VALUES ('admin', '$2a$10$Nnwx70r6csJlAX1.oNgbVOSN8JO5wFZmsubzXlxoXv9eUNlMU6buq'); -- 密码是‘admin’加密形式
+INSERT INTO `spring_security_test`.`user`(`username`, `password`) VALUES ('admin', '$2a$10$Nnwx70r6csJlAX1.oNgbVOSN8JO5wFZmsubzXlxoXv9eUNlMU6buq'); -- 密码是‘admin’加密形式, 可以使用new BCryptPasswordEncoder().encode(str)方法得到加密后的密码
 INSERT INTO `spring_security_test`.`user`(`username`, `password`) VALUES ('customer', '$2a$10$Nnwx70r6csJlAX1.oNgbVOSN8JO5wFZmsubzXlxoXv9eUNlMU6buq'); -- 密码是‘admin’加密形式
 
 -- 开启group时，插入数据

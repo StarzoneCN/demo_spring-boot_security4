@@ -19,6 +19,7 @@ import java.security.Principal;
 public class UserManagementController {
 
     @RequestMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String index(Principal user){
         return "thanks for calling user management index method";
     }
