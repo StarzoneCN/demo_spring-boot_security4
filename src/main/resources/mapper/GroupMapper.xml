@@ -38,5 +38,6 @@
       where gu.`user_id` = g.`id`
       and ga.`group_id` = g.`id`
       and ga.`authority_id` = a.`id`
+      AND gu.`user_id` = #{userId}
   </select>
 </mapper>
