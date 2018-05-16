@@ -1,13 +1,18 @@
 package com.example.demosecurity4.config;
 
 import com.example.demosecurity4.user.service.impl.CustomUserDetialsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
@@ -43,6 +48,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public AuthenticationEventPublisher authenticationEventPublisher(){
+        return new CustomAuthenticationEventPublisher();
+    }
+
+    @Bean
+    public SessionRegistry sessionRegistry(){
+        return new SessionRegistryImpl();
+    }
+
+    @Bean
     @Order(1)
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -53,6 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // inMemoryManualConfig(auth);  //inMemory模式配置
         customUserDetialsService.setSupportGroup(true);
         auth.userDetailsService(customUserDetialsService).passwordEncoder(passwordEncoder());
+        auth.authenticationEventPublisher(authenticationEventPublisher());
     }
 
     private void inMemoryManualConfig(AuthenticationManagerBuilder auth) throws Exception {
