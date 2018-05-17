@@ -94,6 +94,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .rememberMeCookieName("warplaneInLaji")
                     .tokenValiditySeconds(60 * 60).and()
                 .httpBasic();
+
+        http.sessionManagement().maximumSessions(1).expiredUrl("/login");
     }
 
     public static void main(String[] args) {
