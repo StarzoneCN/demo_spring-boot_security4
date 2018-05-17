@@ -18,7 +18,7 @@ public class CustomAuthenticationEventPublisher implements AuthenticationEventPu
 
     @Override
     public void publishAuthenticationSuccess(Authentication authentication) {
-        System.out.println("身份鉴定成功");
+        System.out.println("自定义AuthenticationEventPublisher：CustomAuthenticationEventPublisher");
     }
 
     @Override

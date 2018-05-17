@@ -66,7 +66,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // inMemoryManualConfig(auth);  //inMemory模式配置
-        customUserDetialsService.setSupportGroup(true);
+        customUserDetialsService.setEnableGroups(true);
+        customUserDetialsService.setDataSource(dataSource);
+        customUserDetialsService.setEnableAuthorities(false);
         auth.userDetailsService(customUserDetialsService).passwordEncoder(passwordEncoder());
         auth.authenticationEventPublisher(authenticationEventPublisher());
     }
