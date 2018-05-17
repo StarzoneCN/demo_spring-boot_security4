@@ -11,7 +11,7 @@ demo_spring-boot_security4
   * 继承`JdbcUserDetailsManager`也可以定义用户自己的表格形式，只需要在`JdbcUserDetailsManager`的子类中定义用户自己表格形式的SQL语句就可以了；
 * 数据库使用的是<strong>`MySql`</strong>，持久化框架使用的<strong>`mybatis`</strong>。<br/>
 * src/test/resources/mybatis-generator/generatorConfig.xml中配置的是mybatis代码生成工具。<br/>
-pom.xml中配置添加mybatis-generator插件才能使用。<br/>
-执行`mvn mybatis-generator:generate`即可生成对应entity、mapper和xml。
+  * pom.xml中配置添加mybatis-generator插件才能使用。<br/>
+  * 执行`mvn mybatis-generator:generate`即可生成对应entity、mapper和xml。
 
 
