@@ -4,9 +4,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-    <classPathEntry
-            location="F:/.m2 - back/repository/mysql/mysql-connector-java/6.0.6/mysql-connector-java-6.0.6.jar"/>
-    <context id="my" targetRuntime="MyBatis3">
+    <context id="my" targetRuntime="MyBatis3" defaultModelType="hierarchical">
         <commentGenerator>
             <property name="suppressDate" value="false"/>
             <property name="suppressAllComments" value="true"/>
