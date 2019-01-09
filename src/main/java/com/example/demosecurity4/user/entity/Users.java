@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 /**
@@ -23,6 +25,7 @@ public class Users extends Model<Users> {
 	@TableId(value="id", type= IdType.AUTO)
 	private Integer id;
 	private String username;
+	@JsonIgnore
 	private String password;
 	private String email;
 	private String mobile;
