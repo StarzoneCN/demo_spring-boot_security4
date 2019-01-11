@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -35,6 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Resource private CustomUserDetialsService customUserDetialsService;
     @Resource private DataSource dataSource;
+    @Autowired private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
 
     @Bean
     @Order(1)
@@ -92,10 +94,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .key("starzoneCN")
                     .rememberMeParameter("rememberMe")
                     .rememberMeCookieName("warplaneInLaji")
-                    .tokenValiditySeconds(60 * 60).and()
-                .httpBasic();
-
-        http.sessionManagement().maximumSessions(1).expiredUrl("/login");
+                    .tokenValiditySeconds(5).and()
+                .httpBasic()
+                    .and()
+                .sessionManagement()
+                    // 最多同时登陆几个客户端
+                    .maximumSessions(1)
+                    // 配合maximumSessions，达到最大值后，拒绝登陆
+                    // .maxSessionsPreventsLogin(true)
+                    .expiredUrl("/login")
+                    // 当再次请求的时候，如果检测到session失效，如何处理
+                    .expiredSessionStrategy(sessionInformationExpiredStrategy)
+                    // session保存策略，默认保存在内存中，所以重启系统需要重新登录
+                    .sessionRegistry(new SessionRegistryImpl());
     }
 
     public static void main(String[] args) {
