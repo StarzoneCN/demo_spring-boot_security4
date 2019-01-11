@@ -37,6 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource private CustomUserDetialsService customUserDetialsService;
     @Resource private DataSource dataSource;
     @Autowired private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
+    @Autowired private AuthenticationEventPublisher authenticationEventPublisher;
 
     @Bean
     @Order(1)
@@ -47,11 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         jdbcTokenRepository.setCreateTableOnStartup(false);
         jdbcTokenRepository.setDataSource(dataSource);
         return jdbcTokenRepository;
-    }
-
-    @Bean
-    public AuthenticationEventPublisher authenticationEventPublisher(){
-        return new CustomAuthenticationEventPublisher();
     }
 
     @Bean
@@ -72,7 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         customUserDetialsService.setDataSource(dataSource);
         customUserDetialsService.setEnableAuthorities(false);
         auth.userDetailsService(customUserDetialsService).passwordEncoder(passwordEncoder());
-        auth.authenticationEventPublisher(authenticationEventPublisher());
+        auth.authenticationEventPublisher(authenticationEventPublisher);
     }
 
     private void inMemoryManualConfig(AuthenticationManagerBuilder auth) throws Exception {
@@ -98,7 +94,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                     .and()
                 .sessionManagement()
-                    // 最多同时登陆几个客户端
+                    // 最多同时登陆几个客户端,默认是1（但是实际上却没有限制）， -1表示不限制
                     .maximumSessions(1)
                     // 配合maximumSessions，达到最大值后，拒绝登陆
                     // .maxSessionsPreventsLogin(true)
