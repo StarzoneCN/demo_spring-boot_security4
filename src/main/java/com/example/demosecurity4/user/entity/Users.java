@@ -7,8 +7,12 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * <p>
@@ -18,9 +22,15 @@ import java.io.Serializable;
  * @author LiHongxing
  * @since 2018-05-17
  */
-public class Users extends Model<Users> {
-
+public class Users extends Model<Users> implements UserDetails {
     private static final long serialVersionUID = 1L;
+
+    public Users(){}
+    public Users(boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired){
+    	this.accountNonExpired = accountNonExpired;
+    	this.accountNonLocked = accountNonLocked;
+    	this.credentialsNonExpired = credentialsNonExpired;
+	}
 
 	@TableId(value="id", type= IdType.AUTO)
 	private Integer id;
@@ -33,6 +43,15 @@ public class Users extends Model<Users> {
 	private String countryCode;
 	private String address;
 	private Boolean enabled;
+
+	@TableField(exist = false)
+	private Set<GrantedAuthority> authorities;
+	@TableField(exist = false)
+	private boolean accountNonExpired = false;
+	@TableField(exist = false)
+	private boolean accountNonLocked = false;
+	@TableField(exist = false)
+	private boolean credentialsNonExpired = false;
 
 
 	public Integer getId() {
@@ -47,8 +66,37 @@ public class Users extends Model<Users> {
 		return username;
 	}
 
+	@Override
+	public boolean isAccountNonExpired() {
+		return this.accountNonExpired;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return this.accountNonLocked;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return this.credentialsNonExpired;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return this.enabled;
+	}
+
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public void setAuthorities(Set<GrantedAuthority> authorities) {
+		this.authorities = authorities;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return this.authorities;
 	}
 
 	public String getPassword() {
@@ -89,10 +137,6 @@ public class Users extends Model<Users> {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public Boolean getEnabled() {
-		return enabled;
 	}
 
 	public void setEnabled(Boolean enabled) {
