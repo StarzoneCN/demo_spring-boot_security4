@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
 import javax.annotation.Resource;
@@ -48,11 +49,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         jdbcTokenRepository.setCreateTableOnStartup(false);
         jdbcTokenRepository.setDataSource(dataSource);
         return jdbcTokenRepository;
-    }
-
-    @Bean
-    public SessionRegistry sessionRegistry(){
-        return new SessionRegistryImpl();
     }
 
     @Bean
@@ -102,7 +98,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     // 当再次请求的时候，如果检测到session失效，如何处理
                     .expiredSessionStrategy(sessionInformationExpiredStrategy)
                     // session保存策略，默认保存在内存中，所以重启系统需要重新登录
-                    .sessionRegistry(new SessionRegistryImpl());
+                    .sessionRegistry(new SessionRegistryImpl()).and();
     }
 
     public static void main(String[] args) {
