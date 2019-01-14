@@ -1,4 +1,4 @@
-package com.example.demosecurity4.config;
+package com.example.demosecurity4.config.listener;
 
 import org.springframework.context.ApplicationEvent;
 

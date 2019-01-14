@@ -1,4 +1,4 @@
-package com.example.demosecurity4.config;
+package com.example.demosecurity4.config.security;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationEventPublisher;

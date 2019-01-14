@@ -1,12 +1,9 @@
-package com.example.demosecurity4.config;
+package com.example.demosecurity4.config.listener;
 
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
-
-import java.security.Principal;
 
 /**
  * 监听所有ApplicationEvent

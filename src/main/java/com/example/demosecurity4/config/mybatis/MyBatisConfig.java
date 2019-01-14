@@ -1,4 +1,4 @@
-package com.example.demosecurity4.config;
+package com.example.demosecurity4.config.mybatis;
 
 import com.baomidou.mybatisplus.MybatisConfiguration;
 import com.baomidou.mybatisplus.MybatisXMLLanguageDriver;

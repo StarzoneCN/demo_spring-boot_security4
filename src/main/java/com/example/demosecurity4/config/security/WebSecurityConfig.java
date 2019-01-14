@@ -1,4 +1,4 @@
-package com.example.demosecurity4.config;
+package com.example.demosecurity4.config.security;
 
 import com.example.demosecurity4.user.service.impl.CustomUserDetialsService;
 import org.springframework.beans.factory.annotation.Autowired;
