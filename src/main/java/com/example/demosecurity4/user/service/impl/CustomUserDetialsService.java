@@ -4,11 +4,8 @@ import com.baomidou.mybatisplus.mapper.Condition;
 import com.example.demosecurity4.user.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.stereotype.Service;
@@ -18,8 +15,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -62,6 +57,7 @@ public class CustomUserDetialsService extends JdbcUserDetailsManager {
      * loading queries.
      * @return the final UserDetails which should be used in the system.
      */
+    @Override
     protected UserDetails createUserDetails(String username,
                                             UserDetails userFromUserQuery, List<GrantedAuthority> combinedAuthorities) {
         String returnUsername = userFromUserQuery.getUsername();
@@ -106,6 +102,7 @@ public class CustomUserDetialsService extends JdbcUserDetailsManager {
             Serializable {
         private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
+        @Override
         public int compare(GrantedAuthority g1, GrantedAuthority g2) {
             // Neither should ever be null as each entry is checked before adding it to
             // the set.
